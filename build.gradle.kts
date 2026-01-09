@@ -31,6 +31,12 @@ extra["springModulithVersion"] = "2.0.1"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    // 启用 Spring MVC Web 与校验
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    // Jackson Kotlin 模块，优化 Kotlin 数据类序列化
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.springframework.modulith:spring-modulith-starter-core")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
