@@ -3,10 +3,10 @@ services:
     image: mysql:8.0
     container_name: wxxserver-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: wxxserver
-      MYSQL_USER: wxx
-      MYSQL_PASSWORD: changeme
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
     ports:
       - "3306:3306"
     volumes:

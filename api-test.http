@@ -1,0 +1,24 @@
+### 健康检查接口
+GET http://localhost:8080/api/health/ping
+
+### 获取用户信息（ID=1）
+GET http://localhost:8080/api/users/1
+
+### 创建新用户
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "zhangsan",
+  "email": "zhangsan@example.com"
+}
+
+### 创建第二个用户
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "lisi",
+  "email": "lisi@example.com"
+}
+
