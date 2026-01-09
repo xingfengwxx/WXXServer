@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
-    kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "4.0.1"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
+    id("org.springframework.boot") version "3.2.11"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.netflix.dgs.codegen") version "8.3.0"
-    id("org.graalvm.buildtools.native") version "0.11.3"
+    // id("org.graalvm.buildtools.native") version "0.11.3"  // 暂时禁用以避免 AOT 问题
 }
 
 group = "com.wangxingxing.wxxserver"
@@ -27,15 +27,22 @@ repositories {
     mavenCentral()
 }
 
-extra["springModulithVersion"] = "2.0.1"
+extra["springModulithVersion"] = "1.1.10"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    // 启用 Spring MVC Web 与校验
+    // Web + Validation + Jackson Kotlin
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    // Jackson Kotlin 模块，优化 Kotlin 数据类序列化
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // MyBatis-Plus & MySQL
+    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
+    runtimeOnly("com.mysql:mysql-connector-j")
+
+    // Redis 缓存
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
 
     implementation("org.springframework.modulith:spring-modulith-starter-core")
     compileOnly("org.projectlombok:lombok")
@@ -45,7 +52,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.springframework.modulith:spring-modulith-starter-test")
+    // testImplementation("org.springframework.modulith:spring-modulith-starter-test")  // 暂时禁用
+    testImplementation("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -70,3 +78,5 @@ tasks.generateJava {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+
