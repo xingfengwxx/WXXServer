@@ -21,10 +21,11 @@ services:
   redis:
     image: redis:7-alpine
     container_name: wxxserver-redis
+    command: redis-server --requirepass admin
     ports:
       - "6379:6379"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "admin", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
