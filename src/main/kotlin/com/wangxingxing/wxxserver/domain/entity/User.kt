@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.annotation.IdType
 data class User(
     @TableId(type = IdType.AUTO)
     val id: Long? = null,
-    val username: String,
-    val email: String
+    val username: String = "",
+    val email: String = ""
 )
 
