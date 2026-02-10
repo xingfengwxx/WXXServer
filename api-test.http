@@ -4,6 +4,12 @@ GET http://localhost:8080/api/health/ping
 ### 获取用户信息（ID=1）
 GET http://localhost:8080/api/users/1
 
+### 获取用户列表（分页）- 默认参数
+GET http://localhost:8080/api/users
+
+### 获取用户列表（分页）- 自定义参数
+GET http://localhost:8080/api/users?current=1&size=5
+
 ### 创建新用户
 POST http://localhost:8080/api/users
 Content-Type: application/json

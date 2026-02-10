@@ -1,9 +1,11 @@
 package com.wangxingxing.wxxserver.service.impl
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.wangxingxing.wxxserver.common.exception.BusinessException
 import com.wangxingxing.wxxserver.common.exception.ErrorCode
 import com.wangxingxing.wxxserver.domain.entity.User
+import com.wangxingxing.wxxserver.dto.PageResult
 import com.wangxingxing.wxxserver.mapper.UserMapper
 import com.wangxingxing.wxxserver.service.UserService
 import org.springframework.cache.annotation.Cacheable
@@ -26,6 +28,18 @@ class UserServiceImpl(
         if (exists != null) throw BusinessException(ErrorCode.BIZ_CONFLICT, "用户名已存在")
         userMapper.insert(user)
         return user.id ?: throw BusinessException(ErrorCode.INTERNAL_ERROR, "创建用户失败")
+    }
+
+    override fun getPage(current: Long, size: Long): PageResult<User> {
+        val page = Page<User>(current, size)
+        val result = userMapper.selectPage(page, null)
+        return PageResult(
+            records = result.records,
+            total = result.total,
+            size = result.size,
+            current = result.current,
+            pages = result.pages
+        )
     }
 }
 

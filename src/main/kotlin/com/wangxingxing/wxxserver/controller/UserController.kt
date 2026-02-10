@@ -2,6 +2,7 @@ package com.wangxingxing.wxxserver.controller
 
 import com.wangxingxing.wxxserver.common.model.Result
 import com.wangxingxing.wxxserver.domain.entity.User
+import com.wangxingxing.wxxserver.dto.PageResult
 import com.wangxingxing.wxxserver.dto.UserCreateRequest
 import com.wangxingxing.wxxserver.service.UserService
 import jakarta.validation.Valid
@@ -15,6 +16,12 @@ class UserController(
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): Result<User?> = Result.success(userService.getById(id))
+
+    @GetMapping
+    fun getPage(
+        @RequestParam(defaultValue = "1") current: Long,
+        @RequestParam(defaultValue = "10") size: Long
+    ): Result<PageResult<User>> = Result.success(userService.getPage(current, size))
 
     @PostMapping
     fun create(@Valid @RequestBody req: UserCreateRequest): Result<Long> {
